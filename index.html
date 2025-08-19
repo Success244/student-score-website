@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Grade Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="description" content="Predict final grades based on hours studied, attendance, and previous marks." />
+  </head>
+  <body>
+    <div class="bg-animated"></div>
+
+    <main class="app">
+      <header class="app__header">
+        <h1 class="title">
+          <span class="title__gradient">Student Grade Predictor</span>
+        </h1>
+        <p class="subtitle">Tune your study plan and see your potential. Instant, colorful, and animated.</p>
+      </header>
+
+      <section class="card grid two-col" aria-labelledby="inputs-title">
+        <h2 id="inputs-title" class="sr-only">Inputs</h2>
+
+        <div class="control">
+          <label for="hoursRange" class="control__label">Hours studied per week</label>
+          <div class="control__row">
+            <input id="hoursRange" type="range" min="0" max="60" step="1" value="10" />
+            <input id="hoursNumber" type="number" min="0" max="60" step="1" value="10" />
+          </div>
+          <small class="hint">0–60 hours/week • Diminishing returns after ~25 hours</small>
+        </div>
+
+        <div class="control">
+          <label for="attendanceRange" class="control__label">Attendance</label>
+          <div class="control__row">
+            <input id="attendanceRange" type="range" min="0" max="100" step="1" value="50" />
+            <input id="attendanceNumber" type="number" min="0" max="100" step="1" value="50" />
+            <span class="suffix">%</span>
+          </div>
+          <small class="hint">Showing up matters: very low attendance reduces overall potential</small>
+        </div>
+
+        <div class="control">
+          <label for="previousRange" class="control__label">Previous marks</label>
+          <div class="control__row">
+            <input id="previousRange" type="range" min="0" max="100" step="1" value="50" />
+            <input id="previousNumber" type="number" min="0" max="100" step="1" value="50" />
+            <span class="suffix">%</span>
+          </div>
+          <small class="hint">Your past performance sets a baseline that you can build on</small>
+        </div>
+
+        <div class="actions">
+          <button id="predictBtn" class="btn btn-primary" type="button">Predict Grade</button>
+          <button id="resetBtn" class="btn btn-ghost" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section class="card result" aria-labelledby="result-title">
+        <h2 id="result-title" class="section-title">Predicted Final Grade</h2>
+
+        <div class="gauge" role="img" aria-label="Predicted grade gauge">
+          <svg viewBox="0 0 120 120" class="gauge__svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="var(--accent-1)" />
+                <stop offset="100%" stop-color="var(--accent-2)" />
+              </linearGradient>
+            </defs>
+            <circle class="gauge__bg" cx="60" cy="60" r="52" />
+            <circle class="gauge__progress" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="gauge__value">
+            <span id="predictedValue">—</span>
+            <span class="unit">%</span>
+          </div>
+        </div>
+
+        <div class="badges" aria-live="polite">
+          <span id="badgeLabel" class="badge">Ready</span>
+        </div>
+
+        <div class="explain">
+          <h3 class="explain__title">How this estimate is computed</h3>
+          <ul>
+            <li><strong>Previous marks</strong> influence the baseline.</li>
+            <li><strong>Hours studied</strong> have diminishing returns.</li>
+            <li><strong>Attendance</strong> boosts consistency; very low attendance is penalized.</li>
+          </ul>
+          <p class="disclaimer">This is a rough heuristic for planning, not a guarantee. Use it to experiment with what-if scenarios.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <button id="themeBtn" class="btn btn-ghost" type="button" aria-label="Toggle theme">Toggle Theme</button>
+      </footer>
+    </main>
+
+    <template id="confetti-template">
+      <div class="confetti"></div>
+    </template>
+
+    <script src="./script.js"></script>
+  </body>
+  </html>
